@@ -1,14 +1,14 @@
-#include <stdint.h>
+//#include <stdint.h>
 #include <getopt.h>
 #include <signal.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+//#include <sys/types.h>
+//#include <netinet/in.h>
+//#include <arpa/inet.h>
 #include "util.h"
 #include "timer.h"
-#include "http.h"
+//#include "http.h"
 #include "epoll.h"
 #include "threadpool.h"
 
@@ -109,8 +109,8 @@ int main(int argc, char* argv[]) {
 
     // create thread pool
 //    /*
-    threadpool_t *tp = threadpool_init(cf.thread_num);
-    check(tp != NULL, "threadpool_init error");
+//    threadpool_t *tp = threadpool_init(cf.thread_num);
+//    check(tp != NULL, "threadpool_init error");
 //    */
 
     //initialize timer
@@ -186,16 +186,16 @@ int main(int argc, char* argv[]) {
                 }
 
                 log_info("new data from %s:%s", r->hostname, r->port);
-                threadpool_add(tp, read_request, events[i].data.ptr);
+//                threadpool_add(tp, read_request, events[i].data.ptr);
 
-//                read_request(events[i].data.ptr);
+                read_request(events[i].data.ptr);
             }
         }//end of for epoll_wait events
 
         nx_handle_expire_timers();//after handled new and old connection,handle expire timers
     }
 
-    threadpool_destroy(tp);
+//    threadpool_destroy(tp);
 
     return 0;
 }
